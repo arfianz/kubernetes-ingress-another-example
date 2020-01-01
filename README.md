@@ -26,9 +26,9 @@ Now that our cluster is running we can go ahead and start deploying stuff.
 1. Deploy our pods(containers), using deployments. A deployment, pretty much just manages the state of our pods,
 
 ```bash
-kubectl apply -f meow-echo.yaml
-kubectl get deploy | grep meow-echo
-kubectl get pods | grep meow-echo
+$ kubectl apply -f meow-echo.yaml
+$ kubectl get deploy | grep meow-echo
+$ kubectl get pods | grep meow-echo
 ```
 The image is the location of the container. When deploying your own application, you would select your image. gcr.io/kubernetes-e2e-test-images/echoserver:2.1 just responds with information about the request.
 
@@ -37,8 +37,8 @@ Also note that containerPort: 8080 is the port that the application is running o
 2. Expose our pods using Services
 
 ```bash
-kubectl apply -f meow-service.yaml
-kubectl get svc | grep meow-svc
+$ kubectl apply -f meow-service.yaml
+$ kubectl get svc | grep meow-svc
 ```
 
 Note the targetPort: 8080 is the port we target when we access the service. port: 80 is the port used to access the service.
@@ -46,8 +46,8 @@ Note the targetPort: 8080 is the port we target when we access the service. port
 3. Setup the Ingress Rules.
 
 ```bash
-kubectl apply -f meow-ingress.yaml
-kubectl get ing | grep meow
+$ kubectl apply -f meow-ingress.yaml
+$ kubectl get ing | grep meow
 ```
 
 This allows us to access the service meow-svc via the /meow path. Since we didn’t specify a host, then we can access it using the clusterIP.
@@ -59,8 +59,9 @@ Note the nginx.ingress.kubernetes.io/ssl-redirect annotation. It is used since w
 Now the Ingress rules are configured, we can test everything out. Now let’s send some requests.
 
 ```bash
-minikube ip
-curl 192.168.99.100/meow
+$ minikube ip
+<minikube ip>
+$ curl <minikube ip>/meow
 ```
 
 ## Basic Debugging
@@ -72,8 +73,8 @@ In this section, we will explore a few basics of debugging. The following show h
 Prints a detailed description of the selected pods, which includes events.
 
 ```bash
-kubectl get pods -n kube-system | grep nginx-ingress-controller
-kubectl describe pods -n kube-system nginx-ingress-controller-xxxxxx-yyyy
+$ kubectl get pods -n kube-system | grep nginx-ingress-controller
+$ kubectl describe pods -n kube-system nginx-ingress-controller-xxxxxx-yyyy
 ```
 
 ### View the Logs
@@ -81,7 +82,7 @@ kubectl describe pods -n kube-system nginx-ingress-controller-xxxxxx-yyyy
 Prints the logs for the nginx-ingress-controller.
 
 ```bash
-kubectl logs -n kube-system nginx-ingress-controller-xxxxxx-yyyy
+$ kubectl logs -n kube-system nginx-ingress-controller-xxxxxx-yyyy
 ```
 
 ### View the Nginx Conf
@@ -89,7 +90,7 @@ kubectl logs -n kube-system nginx-ingress-controller-xxxxxx-yyyy
 Displays how nginx configures the application routing rules.
 
 ```bash
-kubectl exec -it -n kube-system nginx-ingress-controller-xxxxxx-yyyy cat /etc/nginx/nginx.conf
+$ kubectl exec -it -n kube-system nginx-ingress-controller-xxxxxx-yyyy cat /etc/nginx/nginx.conf
 ```
 
 ## LICENSE
