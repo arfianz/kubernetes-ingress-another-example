@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: meow-echo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: meow-echo
+  template:
+    metadata:
+      labels:
+        app: meow-echo
+    spec:
+      containers:
+      - name: meow-echo
+        image: gcr.io/kubernetes-e2e-test-images/echoserver:2.1
+        ports:
+        - containerPort: 8080
