@@ -1,6 +1,6 @@
 # Kubernetes Ingress Another Example App
 
-What is an Ingress? It is a door, a way into your application.
+What is an **Ingress**? It is a door, a way into your application.
 
 ![Door](./background.jpeg?raw=true)
 
@@ -10,10 +10,10 @@ How does Ingress work in Kubernetes? In Kubernetes, Ingress works by configuring
 
 There are 4 items which we will be looking at, Pods, Services, Ingress Resources, and the Ingress Controller. WARNING: I’m going to use alot of door metaphors.
 
-- A Pod is a group of one or more containers, with shared storage/network, and a specification for how to run the containers. That definition is straight from Kubernetes. It’s the actual application, sitting behind the door.
-- A Service identifies a set of pods that are running your application, and routes traffic to those pods. It does this using label selectors. It’s what’s behind the door, pointing at the application.
-- The Ingress Resource is a collection of rules that allows incoming connections to reach your Services. It is the door.
-- The Ingress Controller uses Ingress Resources to configure application access. In Ingress-Nginx, an Nginx configuration is built from the ingress resources, setting up the routing rules. It is the door person, which opens and closes the door to users.
+- **A Pod** is a group of one or more containers, with shared storage/network, and a specification for how to run the containers. That definition is straight from Kubernetes. It’s the actual application, sitting behind the door.
+- **A Service** identifies a set of pods that are running your application, and routes traffic to those pods. It does this using label selectors. It’s what’s behind the door, pointing at the application.
+- **The Ingress Resource** is a collection of rules that allows incoming connections to reach your Services. It is the door.
+- **The Ingress Controller** uses Ingress Resources to configure application access. In Ingress-Nginx, an Nginx configuration is built from the ingress resources, setting up the routing rules. It is the door person, which opens and closes the door to users.
 
 ## Tutorial
 
@@ -30,7 +30,7 @@ $ kubectl apply -f meow-echo.yaml
 $ kubectl get deploy | grep meow-echo
 $ kubectl get pods | grep meow-echo
 ```
-The image is the location of the container. When deploying your own application, you would select your image. gcr.io/kubernetes-e2e-test-images/echoserver:2.1 just responds with information about the request.
+The image is the location of the container. When deploying your own application, you would select your image. **gcr.io/kubernetes-e2e-test-images/echoserver:2.1** just responds with information about the request.
 
 Also note that containerPort: 8080 is the port that the application is running on.
 
