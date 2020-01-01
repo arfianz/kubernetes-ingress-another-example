@@ -2,7 +2,7 @@
 
 What is an Ingress? It is a door, a way into your application.
 
-![Door](./background.jepg?raw=true)
+![Door](./background.jpeg?raw=true)
 
 ## What's Ingress?
 
