@@ -61,6 +61,7 @@ Now the Ingress rules are configured, we can test everything out. Now let’s se
 ```bash
 minikube ip
 curl 192.168.99.100/meow
+```
 
 ## Basic Debugging
 
