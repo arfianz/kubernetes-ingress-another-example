@@ -6,31 +6,18 @@ What is an Ingress? It is a door, a way into your application.
 
 ## What's Ingress?
 
-An ingress is a set of rules that allows inbound connections to reach the kubernetes cluster services.
+How does Ingress work in Kubernetes? In Kubernetes, Ingress works by configuring rules for accessing your applications.
 
-Typically, the kubernetes cluster is firewalled from the internet. It has edge routers enforcing the firewall. Kubernetes resources like services, pods, have IPs only routable by the cluster network and are not (directly) accessible outside the cluster. All traffic that ends up at an edge router is either dropped or forwarded elsewhere. So, submitting an ingress to the cluster defines a set of rules for routing external traffic to the kubernetes endpoints.
+There are 4 items which we will be looking at, Pods, Services, Ingress Resources, and the Ingress Controller. WARNING: I’m going to use alot of door metaphors.
 
-As you might have guessed, the rule is:
+- A Pod is a group of one or more containers, with shared storage/network, and a specification for how to run the containers. That definition is straight from Kubernetes. It’s the actual application, sitting behind the door.
+- A Service identifies a set of pods that are running your application, and routes traffic to those pods. It does this using label selectors. It’s what’s behind the door, pointing at the application.
+- The Ingress Resource is a collection of rules that allows incoming connections to reach your Services. It is the door.
+- The Ingress Controller uses Ingress Resources to configure application access. In Ingress-Nginx, an Nginx configuration is built from the ingress resources, setting up the routing rules. It is the door person, which opens and closes the door to users.
 
-- all requests to myminikube.info/ should be routed to the service in the cluster named echoserver.
-- requests mapping to cheeses.all/stilton should be routed to the stilton-cheese service.
-- and finally, requests mapping to cheeses.all/cheddar should be routed to the cheddar-cheese service.
+## Tutorial
 
-Of course, there’s more to it; like the backend tag which implies that unmatched requests should be routed to the default-http-backend service and there’s also the familiar kubernetes tags; for example the apiVersion tag which clearly marks ingress as a beta feature.
-
-Note the annotation:
-
-```bash
-ingress.kubernetes.io/rewrite-target: /
-```
-
-## The Ingress Controller
-
-In order for the Ingress resource to work, the cluster must have an Ingress controller running. When a user requests an ingress by POSTing an Ingress resource (such as the one above) to the API server, the Ingress controller is responsible for fulfilling the Ingress, usually with a loadbalancer. Though it may also configure the edge routers or additional frontends to help handle the traffic.
-
-As such without an Ingress controller to satisfy the ingress, merely creating the ingress resource will have no effect.
-
-You can write your own controller but you need not to. There are readily available third-party ingress controllers like the Nginx, Traefik, HAproxy controllers which you could easily leverage. I will be using the Nginx controller for this demo but feel free to try out any other.
+Now, lets get started with putting all the above into action!
 
 ### Deploying Application
 
